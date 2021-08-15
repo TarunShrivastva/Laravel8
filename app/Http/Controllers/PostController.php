@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Http\Requests\PostRequest;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\PostFormRequest;
 
 class PostController extends Controller
 {
@@ -35,18 +38,26 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostFormRequest $request)
     {
+        // $validator = Validator::make($request->all(), [
+        //     'title' => 'required|unique:posts|max:255',
+        //     'description' => 'required',
+        // ]);
 
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-        ]);
+        // if ($validator->fails()) {
+        //     return redirect('posts/create')
+        //                 ->withErrors($validator)
+        //                 ->withInput();
+        // }
 
-        $request->merge([
-            'title' => $request->title . "my new line",
-        ]);
+        // $request->merge([
+        //     'title' => $request->title . "my new line",
+        // ]);
 
+        // $imageName = $request->image;  
+        // $request->image->move(public_path('images'), $imageName);
+        
         Post::create($request->all());
 
         // $post = new Post();
