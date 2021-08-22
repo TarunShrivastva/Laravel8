@@ -22,11 +22,14 @@
         <tr>
             <th>Title</th>
             <th>Description</th>
+            <th>User</th>
+            <th>Actions</th>
         </tr>
         @foreach ($posts as $post)
         <tr>
             <td>{{ $post->title }}</td>
             <td>{{ $post->description }}</td>
+            <td>{{ $post->user !== null ? $post->user->name : 'no user' }}</td>
             <td>
                 <a class="btn btn-info" href="{{ route('posts.show',$post->id) }}">Show</a>
                 <a class="btn btn-primary" href="{{ route('posts.edit',$post->id) }}">Edit</a>

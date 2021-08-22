@@ -40,4 +40,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    // /**
+    //  * Get the phone associated with the user.
+    //  */
+    // public function post()
+    // {
+    //     return $this->hasOne(Post::class);
+    // }
+
+    /**
+     * Get the comments for the blog post.
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'user_id', 'id');
+    }
+
+    /**
+     * Get the comments for the blog post.
+     */
+    public function article()
+    {
+        return $this->hasOne(Article::class, 'user_id', 'id');
+    }
 }

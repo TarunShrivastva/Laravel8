@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\CustomAuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\MechanicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,3 +72,19 @@ Route::get('/user/{id}/{id2?}', function ($id, $id2=null) {
 // });
 
 Route::resource('posts', PostController::class);
+
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+// Route::get('dashboard', [CustomAuthController::class, 'dashboard']); 
+// Route::get('login', [CustomAuthController::class, 'index'])->name('login');
+// Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom'); 
+// Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
+// Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom'); 
+// Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
+
+
+Route::resource('users', UserController::class);
+Route::resource('owners', OwnerController::class);
+Route::resource('mechanics', MechanicController::class);
