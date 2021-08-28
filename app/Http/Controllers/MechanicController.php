@@ -18,7 +18,7 @@ class MechanicController extends Controller
         
         echo "<pre>";
         foreach ($mechanics as $mechanic) {
-            print_r( $mechanic->carOwner );
+            print_r( $mechanic->carOwners->toArray() );
             echo "<br>";
         }
         dd();

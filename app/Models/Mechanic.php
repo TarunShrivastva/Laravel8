@@ -13,8 +13,16 @@ class Mechanic extends Model
     /**
      * Get the car's owner.
      */
-    public function carOwner()
+    // public function carOwner()
+    // {
+    //     return $this->hasOneThrough(Owner::class, Car::class);
+    // }
+    
+    /**
+     * Get the car's owners.
+     */
+    public function carOwners()
     {
-        return $this->hasOneThrough(Owner::class, Car::class);
+        return $this->hasManyThrough(Owner::class, Car::class);
     }
 }

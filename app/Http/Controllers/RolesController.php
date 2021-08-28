@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use DB;
+use App\Models\Role;
 
-class UserController extends Controller
+class RolesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,17 +14,14 @@ class UserController extends Controller
      */
     public function index()
     {
-
-        DB::enableQueryLog();
-
-        // $users = User::with('roles')->get();
-        
-        $users = User::all();
-        foreach ($users as $user) {
-            $user->roles;
-        }
-        
-        dd(DB::getQueryLog());
+        $role = Role::find(1);
+        // echo "<pre>";
+        // foreach( as $role){
+        //     // dd($role);
+        //     echo $role->users;
+        //     echo "<br>";
+        // }
+        dd($role->users);
     }
 
     /**

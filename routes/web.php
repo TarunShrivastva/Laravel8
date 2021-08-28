@@ -9,6 +9,7 @@ use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\MechanicController;
+// use App\Http\Controllers\RolesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,3 +89,5 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::resource('users', UserController::class);
 Route::resource('owners', OwnerController::class);
 Route::resource('mechanics', MechanicController::class);
+Route::resource('roles', '\App\Http\Controllers\RolesController');
+// Route::get('roles', ['\App\Http\Controllers\RolesController', 'index']);

@@ -65,4 +65,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(Article::class, 'user_id', 'id');
     }
+
+
+    /**
+     * The roles that belong to the user.
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_owner', 'owner_id', 'roles_id');
+    }
 }
