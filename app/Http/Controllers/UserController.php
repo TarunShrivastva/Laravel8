@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use DB;
 
 class UserController extends Controller
 {
@@ -15,17 +14,11 @@ class UserController extends Controller
      */
     public function index()
     {
-
-        DB::enableQueryLog();
-
         // $users = User::with('roles')->get();
-        
         $users = User::all();
         foreach ($users as $user) {
             $user->roles;
         }
-        
-        dd(DB::getQueryLog());
     }
 
     /**
