@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class UserController extends Controller
 {
     /**
@@ -15,10 +17,36 @@ class UserController extends Controller
     public function index()
     {
         // $users = User::with('roles')->get();
-        $users = User::all();
-        foreach ($users as $user) {
-            $user->roles;
-        }
+        $users = User::all()->reject(function ($user) {
+                    return $user->email_verified_at !== null;
+                })->map(function ($user) {
+                    $newUser[] = $user->full_name;
+                    $newUser[] = $user->email; 
+                    return $newUser;
+                });
+        dd($users);
+
+        $users = User::has('posts', '>=', 3)->get(); //atleast one relation should be their
+        
+        $users = User::whereHas('posts', function (Builder $query) {
+                                    $query->where('delayed', 1);
+                                },'>=', 2)->get();
+        $users = User::doesntHave('posts')->get();
+
+        $users = User::whereDoesntHave('posts')->get();
+
+
+
+        // foreach ($users as $user) {
+        //     dd($user->posts
+        //             // ()
+        //             // ->where('name', 'admin')
+        //             // ->where(function (Builder $query) {
+        //             //     return $query->where('name', 'admin');
+        //             // })
+        //             // ->get() 
+        //         );
+        // }
     }
 
     /**

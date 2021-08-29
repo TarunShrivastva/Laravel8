@@ -78,6 +78,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $image = $post->image;
         return view('posts.show',compact('post'));
     }
 
