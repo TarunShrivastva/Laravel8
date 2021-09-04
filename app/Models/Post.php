@@ -20,7 +20,7 @@ class Post extends Model
      */
     protected $attributes = [
         'delayed' => true,
-
+        'user_id' => 1,
     ];
 
     /**

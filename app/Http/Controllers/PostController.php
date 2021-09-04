@@ -17,6 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
+        \Log::info('3');
         $posts = Post::all();
 
         return view('posts.index',compact('posts'));
@@ -57,7 +58,7 @@ class PostController extends Controller
 
         // $imageName = $request->image;  
         // $request->image->move(public_path('images'), $imageName);
-        
+        \Log::info('2');
         Post::create($request->all());
 
         // $post = new Post();

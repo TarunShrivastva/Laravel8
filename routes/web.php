@@ -9,6 +9,8 @@ use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\MechanicController;
+use App\Http\Middleware\EnsureTokenIsValid;
+use App\Http\Middleware\EnsureTokenAfterIsValid;
 // use App\Http\Controllers\RolesController;
 
 /*
@@ -72,7 +74,7 @@ Route::get('/user/{id}/{id2?}', function ($id, $id2=null) {
 //     return 'User '.$id . ', ' . $id2;
 // });
 
-Route::resource('posts', PostController::class);
+
 
 Auth::routes();
 
@@ -86,8 +88,20 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 // Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 
 
+Route::prefix('api')->middleware([EnsureTokenIsValid::class, EnsureTokenAfterIsValid::class])->group(function () {
+    
+    Route::get('midddleware-check', function(){
+        \Log::info('2'); // logic
+    });
+});
+
 Route::resource('users', UserController::class);
-Route::resource('owners', OwnerController::class);
-Route::resource('mechanics', MechanicController::class);
-Route::resource('roles', '\App\Http\Controllers\RolesController');
+    Route::resource('owners', OwnerController::class);
+    Route::resource('mechanics', MechanicController::class);
+    Route::resource('roles', '\App\Http\Controllers\RolesController');
+    Route::resource('posts', PostController::class);
+    Route::post('posts', [PostController::class, 'store'])->middleware('EnsureTokenIsValid:editor,admin')->name('posts.store');
+    Route::get('posts', [PostController::class, 'index'])->middleware(EnsureTokenAfterIsValid::class)->name('posts.index');
+
 // Route::get('roles', ['\App\Http\Controllers\RolesController', 'index']);
+
